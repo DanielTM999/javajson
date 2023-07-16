@@ -1,4 +1,4 @@
-### JSON (Conversor de Objetos Java para JSON)
+# JSON (Conversor de Objetos Java para JSON)
 
 Esta classe fornece uma maneira simples e conveniente de converter objetos Java para o formato JSON. Ela permite que você crie um objeto JSON especificando as chaves e os valores correspondentes, e depois o converta para uma representação em string JSON.
 Uso
@@ -42,7 +42,7 @@ System.out.println(jsonString); // Saída: {"nome":"Fulano de Tal","idade":30}
 
 Observação: Esta classe não fornece funcionalidade de análise JSON (converter uma string JSON para objetos Java).
 
-### classe para Analizar Json
+# classe para Analizar Json
 
 A classe JsonAnalyzer é responsável por analisar e converter uma string JSON em uma estrutura de dados Java composta por Map<String, ?>, List<Map<String, Object>> e outros tipos de dados primitivos.
 
@@ -95,7 +95,7 @@ A classe JsonAnalyzer é responsável por analisar e converter uma string JSON e
 
 ## passo a passo(uso)
 
-# Instancie a classe JsonAnalyzer, passando a string JSON no construtor:
+## Instancie a classe JsonAnalyzer, passando a string JSON no construtor:
 
 ```java
     String jsonString = "{\"nome\":\"Daniel\",\"idade\":19,\"carros\":[{\"modelo\":\"BMW\",\"ano\":2021},{\"modelo\":\"Audi\",\"ano\":2022}],\"cidade\":\"salvador\"}";
@@ -104,7 +104,7 @@ A classe JsonAnalyzer é responsável por analisar e converter uma string JSON e
 
 ```
 
-# Chame o método parse() para obter o resultado da análise:
+## Chame o método parse() para obter o resultado da análise:
 
 ```java
     Map<String, ?> result = analyzer.parse();
@@ -112,7 +112,7 @@ A classe JsonAnalyzer é responsável por analisar e converter uma string JSON e
 
 O resultado será um Map<String, ?> representando o objeto JSON de nível superior.
 
-# Alternativamente, você pode usar o método analyzeOutput() para analisar uma saída JSON em formato de string (OBS para saidas de Json Superior EX: {}, []):
+## Alternativamente, você pode usar o método analyzeOutput() para analisar uma saída JSON em formato de string (OBS para saidas de Json Superior EX: {}, []):
 
 ```java
     String output = jsonMap.get("carros").toString();//[{ano=2021, modelo=BMW}, {ano=2022, modelo=Audi}]
