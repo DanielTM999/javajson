@@ -3,7 +3,7 @@ package com.json;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Json {
+public class Json{
     private List<String> id = new ArrayList<>();
     private List<Object> obj = new ArrayList<>();
     private List<String> convert = new ArrayList<>();
