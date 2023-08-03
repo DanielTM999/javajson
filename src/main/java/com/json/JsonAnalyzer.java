@@ -39,7 +39,6 @@ public class JsonAnalyzer {
                 String key = keyValue[0].trim();
                 String value = keyValue[1].trim();
 
-
                 if (value.startsWith("\"") && value.endsWith("\"")) {
                     value = value.substring(1, value.length() - 1);
                 }

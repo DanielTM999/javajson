@@ -2,6 +2,7 @@ package com.json;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Json{
     private List<String> id = new ArrayList<>();
@@ -37,6 +38,21 @@ public class Json{
     public void put(String id, Object value){
         this.id.add(id);
         this.obj.add(value);
+    }
+
+    public Json CreateComplexJSON(Map<String, ?> obj, String id){
+        Json json = new Json();
+        List<String> jsonList = new ArrayList<>();
+
+        for(Map.Entry<String, ?> entry : obj.entrySet()){
+            Json internalJson = new Json();
+            internalJson.put(entry.getKey(), entry.getValue());
+            jsonList.add(internalJson.toJson());
+        }
+
+        json.put(id, jsonList);
+
+        return json;
     }
 
     private void Converter() throws Exception{
