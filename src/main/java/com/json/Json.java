@@ -40,15 +40,18 @@ public class Json{
         this.obj.add(value);
     }
 
-    public Json CreateComplexJSON(Map<String, ?> obj, String id){
+    public Json CreateComplexJSON(List<Map<String, Object>> itens, String id){
         Json json = new Json();
         List<String> jsonList = new ArrayList<>();
 
-        for(Map.Entry<String, ?> entry : obj.entrySet()){
+        for(Map<String, ?> obj : itens){
             Json internalJson = new Json();
-            internalJson.put(entry.getKey(), entry.getValue());
+            for(Map.Entry<String, ?> entry : obj.entrySet()){
+                internalJson.put(entry.getKey(), entry.getValue());
+            }
             jsonList.add(internalJson.toJson());
         }
+
 
         json.put(id, jsonList);
 
