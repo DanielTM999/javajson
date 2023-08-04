@@ -1,6 +1,10 @@
 package com.json;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +60,101 @@ public class Json{
         json.put(id, jsonList);
 
         return json;
+    }
+
+
+    public Json CreateComplexJSON(Collection<?> itens){
+        Object PrimeiroIten = itens.iterator().next();
+
+        Class<?> clazz = PrimeiroIten.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Method[] Allmetodos = clazz.getDeclaredMethods();
+
+        List<Method> Getter = new ArrayList<>();
+        List<String> var = new ArrayList<>();
+
+        List<Map<String, Object>> finalObject = new ArrayList<>();
+
+        for (int i = 0; i < Allmetodos.length; i++) {
+            String methodName = Allmetodos[i].getName().toLowerCase();
+            for(Field variable : fields){
+                String target = "get"+variable.getName().toLowerCase();
+                if(methodName.equals(target)){
+                    Getter.add(Allmetodos[i]);
+                    var.add(variable.getName());
+                }
+            }
+        }
+
+        for(Object obj : itens){
+            Map<String, Object> instanceMap = new HashMap<>();
+
+            for (int i = 0; i < Getter.size(); i++){
+                String varName = var.get(i);
+                Method getter = Getter.get(i);
+
+                try {
+                    Object valor = getter.invoke(obj);
+                    instanceMap.put(varName, valor);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            finalObject.add(instanceMap);
+        }
+
+        return CreateComplexJSON(finalObject, clazz.getSimpleName());
+    }
+
+    public Json CreateComplexJSON(Collection<?> itens, String ItentificadorJson){
+        Object PrimeiroIten = itens.iterator().next();
+
+        Class<?> clazz = PrimeiroIten.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Method[] Allmetodos = clazz.getDeclaredMethods();
+
+        List<Method> Getter = new ArrayList<>();
+        List<String> var = new ArrayList<>();
+
+        List<Map<String, Object>> finalObject = new ArrayList<>();
+
+        for (int i = 0; i < Allmetodos.length; i++) {
+            String methodName = Allmetodos[i].getName().toLowerCase();
+            for(Field variable : fields){
+                String target = "get"+variable.getName().toLowerCase();
+                if(methodName.equals(target)){
+                    Getter.add(Allmetodos[i]);
+                    var.add(variable.getName());
+                }
+            }
+        }
+
+        for(Object obj : itens){
+            Map<String, Object> instanceMap = new HashMap<>();
+
+            for (int i = 0; i < Getter.size(); i++){
+                String varName = var.get(i);
+                Method getter = Getter.get(i);
+
+                try {
+                    Object valor = getter.invoke(obj);
+                    instanceMap.put(varName, valor);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            finalObject.add(instanceMap);
+        }
+
+        if(ItentificadorJson == null ||ItentificadorJson.isEmpty() || ItentificadorJson.isBlank()){
+            ItentificadorJson = clazz.getSimpleName();
+        }
+
+        return CreateComplexJSON(finalObject, ItentificadorJson);
     }
 
     private void Converter() throws Exception{
@@ -119,6 +218,15 @@ public class Json{
 
         return false;
     }
+
+
+
+    @Override
+    public String toString() {
+        return toJson();
+    }
+
+
 
     public static class JsonBuilder{
         private ArrayList<String> id = new ArrayList<>();
