@@ -44,14 +44,9 @@ JsonObject è uma interface de Json;
 <ul>
     <li>public void put(String id, Object value): Adiciona um par de chave-valor ao objeto JSON.</li>
     <li>public String toJson(): Converte o objeto JSON em uma string JSON.</li>
-
-
     <li>public Json CreateComplexJSON(List<Map<String, Object>> itens, String id): Converte o objeto JSON em uma string JSON.</li>
-
     <li>publicJson CreateComplexJSON(Collection<?> itens): Converte o objeto JSON em uma string JSON.</li>
-
     <li>public Json CreateComplexJSON(Collection<?> itens, String ItentificadorJson): Converte o objeto JSON em uma string JSON.</li>
-
     <li>public Json CreateComplexJSON(Object obj): Converte o objeto JSON em uma string JSON.</li>
 </ul>
 
