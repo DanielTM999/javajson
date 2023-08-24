@@ -79,7 +79,7 @@ public class Json{
             String methodName = Allmetodos[i].getName().toLowerCase();
             for(Field variable : fields){
                 String target = "get"+variable.getName().toLowerCase();
-                if(methodName.equals(target)){
+                if(methodName.equals(target) && !java.lang.reflect.Modifier.isStatic(variable.getModifiers())){
                     Getter.add(Allmetodos[i]);
                     var.add(variable.getName());
                 }
@@ -124,7 +124,7 @@ public class Json{
             String methodName = Allmetodos[i].getName().toLowerCase();
             for(Field variable : fields){
                 String target = "get"+variable.getName().toLowerCase();
-                if(methodName.equals(target)){
+                if(methodName.equals(target) && !java.lang.reflect.Modifier.isStatic(variable.getModifiers())){
                     Getter.add(Allmetodos[i]);
                     var.add(variable.getName());
                 }
@@ -155,6 +155,47 @@ public class Json{
         }
 
         return CreateComplexJSON(finalObject, ItentificadorJson);
+    }
+
+    public Json CreateComplexJSON(Object obj){
+        Json json = new Json();
+
+        Class<?> clazz = obj.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Method[] methods = clazz.getDeclaredMethods();
+
+        List<Field> varNames = new ArrayList<>();
+        List<Method> Getter = new ArrayList<>();
+
+        for(Method method : methods){
+            String methodName = method.getName().toLowerCase();
+            for(Field name : fields){
+                String target = "get"+name.getName().toLowerCase();
+                if (methodName.equals(target) && !java.lang.reflect.Modifier.isStatic(name.getModifiers())) {
+                    varNames.add(name);
+                    Getter.add(method);
+                }
+            }
+        }
+
+        for(int i = 0; i < varNames.size(); i++){
+            Method getter = Getter.get(i);
+
+            try {
+                Object value = getter.invoke(obj);
+
+                if(varNames.get(i).getType().getSimpleName().equalsIgnoreCase("List") || varNames.get(i).getType().getSimpleName().equalsIgnoreCase("ArrayList")){
+                    List<?> lista = (List<?>) value;
+                    json.put(varNames.get(i).getName(), json.CreateComplexJSON(lista).toJson());
+                }else{
+                    json.put(varNames.get(i).getName(), value);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return  json;
     }
 
     private void Converter() throws Exception{
