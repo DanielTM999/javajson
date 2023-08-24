@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Json{
+public class Json implements JsonObject{
     private List<String> id = new ArrayList<>();
     private List<Object> obj = new ArrayList<>();
     private List<String> convert = new ArrayList<>();
@@ -260,14 +260,10 @@ public class Json{
         return false;
     }
 
-
-
     @Override
     public String toString() {
         return toJson();
     }
-
-
 
     public static class JsonBuilder{
         private ArrayList<String> id = new ArrayList<>();
