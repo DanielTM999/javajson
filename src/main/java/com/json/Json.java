@@ -62,7 +62,6 @@ public class Json implements JsonObject{
         return json;
     }
 
-
     public Json CreateComplexJSON(Collection<?> itens){
         Object PrimeiroIten = itens.iterator().next();
 
