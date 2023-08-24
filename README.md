@@ -17,6 +17,17 @@ Chame o método toJson para converter o objeto JSON em uma string JSON.
     System.out.println(jsonString); // Saída: {"nome":"Fulano de Tal","idade":30}
 ```
 
+## Exemplo Generic:
+```java
+    JsonObject json = new Json();
+    json.put("nome", "Fulano de Tal");
+    json.put("idade", 30);
+    String jsonString = json.toJson();
+    System.out.println(jsonString); // Saída: {"nome":"Fulano de Tal","idade":30}
+```
+
+JsonObject è uma interface de Json;
+
 ## Exemplo:
 
 ```java
